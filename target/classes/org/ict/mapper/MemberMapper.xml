@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ict.mapper.MemberMapper">
+
+	<select id="login" resultType="org.ict.domain.MemberVO">
+		SELECT * FROM cgmember 
+			WHERE (mid = #{mid} and mpw = #{mpw})
+	</select>
+	
+	<update id="keepLogin">
+		UPDATE cgmember
+			SET sessionKey = #{sessionId},
+				sessionLimit = #{next}
+			WHERE mid = #{mid}
+	</update>
+	
+	<select id="checkUserWithSessionKey" resultType="org.ict.domain.MemberVO">
+		SELECT * FROM cgmember
+			WHERE sessionKey = #{value}
+			AND sessionLimit > now()
+	</select>
+	
+	<insert id="joinMem">
+		INSERT into cgmember (mid, mpw, mgen, mage)
+			VALUES
+				(#{mid}, #{mpw}, #{mgen}, #{mage})
+	</insert>
+	
+	<select id="getUserInfo" resultType="org.ict.domain.MemberVO">
+		SELECT * FROM cgmember WHERE mid = #{mid}
+	</select>
+
+</mapper>

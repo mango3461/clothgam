@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 1~4번 라인은 xml 스키마 설정으로 굳이 외울 필요 없음. -->
+
+<mapper namespace="org.ict.mapper.ReplyMapper">
+
+	<select id="getList" resultType="org.ict.domain.ReplyVO">
+		SELECT * FROM cgreply
+			WHERE bno = #{bno}
+			ORDER BY rno DESC
+	</select>
+		
+	<insert id="create">
+		INSERT INTO cgreply (bno, replytext, replyer)
+			VALUES (#{bno}, #{replytext}, #{replyer})
+	</insert>
+	
+	<update id="update">
+		UPDATE cgreply
+			SET
+		replytext = #{replytext}, updatedate = now()
+		WHERE rno = #{rno}
+	</update>
+	
+	<delete id="delete">		
+		DELETE FROM cgreply
+		WHERE rno = #{rno}
+	</delete>
+	
+	<select id="getBno" resultType="long">
+		SELECT bno FROM cgreply
+			WHERE rno = #{rno}
+	</select>
+	
+	<delete id="deleteAll">
+		DELETE FROM cgreply
+			WHERE bno = #{bno}
+	</delete>
+
+	<select id="getListPage" resultType="org.ict.domain.ReplyVO">
+		SELECT * FROM cgreply
+			WHERE bno = #{bno}
+			ORDER BY rno DESC
+			limit #{cri.pageStart}, #{cri.number}
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT count(bno) from cgreply
+			WHERE bno = #{bno}	
+	</select>
+	
+	
+	
+</mapper>

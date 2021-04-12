@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+ <mapper namespace="org.ict.mapper.VoteMapper">
+ 	   <select id="getList" resultType="org.ict.domain.VoteVO">
+<!--     조합옷이랑 상의 하의 옷  데이터 싹 긁어온다. -->
+    select c.cglikeno, c.cgdowncno, c.cglike_cnt, c.mno,
+   up.cgupcgen, up.cgupclink, up.cgupcimg,
+   down.cgdowncgen, down.cgdownclink, down.cgdowncimg, 
+   mem.mage
+   from cglike as c, cgupcloth as up, cgdowncloth as down, cgmember as mem
+   where c.cgupcno = up.cgupcno and c.cgdowncno = down.cgdowncno and c.mno = mem.mno
+   and cglikeno > 0
+    </select>
+ 
+    
+    
+    <select id="read" resultType="org.ict.domain.VoteVO">
+       SELECT c.cglikeno, c.cgupcno, c.cgdowncno, c.cglike_cnt,
+      up.cgupcimg, up.cgupclink, down.cgdownclink, down.cgdowncimg
+        FROM cglike AS c, cgupcloth AS up, cgdowncloth AS down
+        WHERE c.cgupcno = up.cgupcno AND c.cgdowncno = down.cgdowncno
+        AND cglikeno = #{cglikeno}  
+        </select>
+       
+       <update id="update">
+       UPDATE cglike
+          SET
+       cglike_cnt = cglike_cnt + 1
+       WHERE
+          cglikeno = #{cglikeno}
+          
+    </update>
+       
+       <update id="updateA">
+       UPDATE cglike
+          SET
+       cglike_cnt = cglike_cnt + 1,
+       cglikeA_cnt = cglikeA_cnt + 1
+       WHERE
+          cglikeno = #{cglikeno}
+          
+    </update>
+    
+       <update id="updateB">
+       UPDATE cglike
+          SET
+          cglike_cnt = cglike_cnt + 1,
+       cglikeB_cnt = cglikeB_cnt + 1
+       WHERE
+          cglikeno = #{cglikeno}
+          
+    </update>
+
+ 	
+ 	<select id="likeNum" resultType="org.ict.domain.VoteVO">
+ 		SELECT cglike_cnt FROM cglike where cglikeno = #{cglikeno}
+ 	</select>
+ 	
+ 	<select id="num" resultType="int">
+ 		select cglikeno from cglike
+ 	</select>
+ 	
+ </mapper>

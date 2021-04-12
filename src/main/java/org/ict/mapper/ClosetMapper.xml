@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ict.mapper.ClosetMapper">
+
+	<select id="closetList" resultType="org.ict.domain.ClosetVO">
+		SELECT * from cgcloset
+		WHERE mno = #{mno}
+		ORDER BY cgclosetno DESC;
+	</select>
+	
+	<select id="closetUp" resultType="org.ict.domain.CgUpcVO">
+		SELECT * from cgupcloth
+		WHERE cgupcno = #{cgUpcNo};
+	</select>
+	
+	<select id="closetDown" resultType="org.ict.domain.CgDowncVO">
+		SELECT * from cgdowncloth
+		WHERE cgdowncno = #{cgDowncNo};
+	</select>
+	
+	
+<!-- 	<select id="closetList" resultType="org.ict.domain.ClosetVO"> -->
+<!-- 		SELECT * from cgupcloth AS up, cgcloset AS clo  -->
+<!-- 		WHERE up.cgupcno = clo.cgupcno AND clo.mno = #{mno}; -->
+<!-- 	</select> -->
+</mapper>

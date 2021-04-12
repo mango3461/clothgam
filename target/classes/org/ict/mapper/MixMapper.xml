@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.ict.mapper.MixMapper">
+
+	<select id="getUpList"
+			resultType="org.ict.domain.CgUpcVO">
+		select * from cgupcloth WHERE cgupcno > 0
+	
+	</select>
+	<select id="getDownList" resultType="org.ict.domain.CgDowncVO">
+		select * from cgdowncloth WHERE cgdowncno > 0
+	</select>
+
+	<insert id="likeMix">
+		INSERT into cglike (cgupcno, cgdowncno, mno)
+			VALUES (#{cgUpcNo}, #{cgDowncNo}, #{mno})
+	</insert>
+
+	<insert id="closetMix">
+		INSERT into cgcloset (cgupcno, cgdowncno, mno)
+			VALUES (#{cgUpcNo}, #{cgDowncNo}, #{mno})
+	</insert>
+</mapper>
+
+	
